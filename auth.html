@@ -51,13 +51,13 @@ function doAuth(){
     auth.signInWithEmailAndPassword(email,password).then((u)=>{
       localStorage.setItem("user",u.user.email);
       alert("تم الدخول بنجاح!");
-      window.location.href="index.html";
+      window.location.href="home.html";
     }).catch(()=>alert("خطأ: تأكد من الإيميل وكلمة السر"));
   } else {
     auth.createUserWithEmailAndPassword(email,password).then((u)=>{
       localStorage.setItem("user",u.user.email);
       alert("تم إنشاء الحساب بنجاح!");
-      window.location.href="index.html";
+      window.location.href="home.html";
     }).catch((e)=>alert("خطأ: "+e.message));
   }
 }
