@@ -211,12 +211,44 @@ function addPost(){
 }
 function like(el){ el.style.transform='scale(1.2)'; setTimeout(()=>el.style.transform='scale(1)',200); }
 function likePost(el){ el.innerText='❤️ تم الإعجاب'; }
-function loginReal(){
-  const e=document.getElementById('email').value; if(!e) return document.getElementById('loginMsg').innerText='أدخل البريد الإلكتروني';
-  document.getElementById('profileEmail').innerText=e; document.getElementById('loginScreen').style.display='none';
+let _fbAuth=null;
+async function getFbAuth(){
+  if(_fbAuth) return _fbAuth;
+  const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+  const {getAuth}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+  const firebaseConfig={apiKey:"AIzaSyBaCuF-iKp6hNEApmEoaYoRQi-GXj6ABcA",authDomain:"jawla-bc7ca.firebaseapp.com",projectId:"jawla-bc7ca",storageBucket:"jawla-bc7ca.firebasestorage.app",messagingSenderId:"131261683793",appId:"1:131261683793:web:5c4e84eaf7ae5d719f8070",measurementId:"G-Y1LQL1TZRN"};
+  const app=initializeApp(firebaseConfig);
+  _fbAuth=getAuth(app);
+  return _fbAuth;
 }
-function registerReal(){ loginReal(); }
-function logoutReal(){ document.getElementById('loginScreen').style.display='block'; }
+async function loginReal(){
+  try{
+    const e=document.getElementById('email').value;
+    const p=document.getElementById('password').value;
+    const auth=await getFbAuth();
+    const {signInWithEmailAndPassword}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const u=await signInWithEmailAndPassword(auth,e,p);
+    document.getElementById('profileEmail').textContent=u.user.email;
+    alert('تم الدخول بنجاح! '+u.user.email);
+  }catch(err){ alert('خطأ: تأكد من الإيميل وكلمة السر'); }
+}
+async function registerReal(){
+  try{
+    const e=document.getElementById('email').value;
+    const p=document.getElementById('password').value;
+    const auth=await getFbAuth();
+    const {createUserWithEmailAndPassword}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const u=await createUserWithEmailAndPassword(auth,e,p);
+    document.getElementById('profileEmail').textContent=u.user.email;
+    alert('تم إنشاء حسابك بنجاح! '+u.user.email);
+  }catch(err){ alert('خطأ: '+err.message); }
+}
+async function logoutReal(){
+  const auth=await getFbAuth();
+  const {signOut}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+  await signOut(auth);
+  alert('تم تسجيل الخروج');
+}
 </script>
 </body>
 </html>
