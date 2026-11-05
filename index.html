@@ -59,7 +59,21 @@ input,textarea,select{width:100%;background:#1e1e2e;border:1px solid #333;color:
 </head>
 <body>
 
-<!-- تسجيل الدخول -->
+<!-- الشاشة 1 : الاسم والتاريخ -->
+<div id="step1">
+<div style="background:#15151f;border:1px solid #333;padding:16px;border-radius:14px">
+<b>انشاء حساب جديد</b><br><br>
+<p>الاسم الاول</p>
+<input id="firstName" placeholder="مثلا: محمد">
+<p>الاسم التاني</p>
+<input id="lastName" placeholder="مثلا: علي">
+<p>تاريخ الميلاد</p>
+<input type="date" id="birthDate" onchange="calcAge()">
+<p id="ageShow" style="color:#ffcc00">العمر: -</p>
+<button class="btn" onclick="goToEmail()">التالي</button>
+</div>
+</div> 
+  تسجيل الدخول -->
 <div id="loginScreen">
   <div style="font-size:48px;font-weight:900;background:linear-gradient(90deg,#ff7a1a,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">JAWLA</div>
   <p style="color:#aaa;margin:10px 0 20px">مرحباً بك في جولة</p>
@@ -248,7 +262,25 @@ async function logoutReal(){
   const {signOut}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
   await signOut(auth);
   alert('تم تسجيل الخروج');
+}function calcAge(){
+var d=document.getElementById('birthDate').value;
+if(!d) return;
+var b=new Date(d);
+var t=new Date();
+var age=t.getFullYear()-b.getFullYear();
+if(t.getMonth()<b.getMonth() || (t.getMonth()==b.getMonth() && t.getDate()<b.getDate())) age--;
+document.getElementById('ageShow').innerText='العمر: '+age;
 }
+
+function goToEmail(){
+var f=document.getElementById('firstName').value;
+var l=document.getElementById('lastName').value;
+var b=document.getElementById('birthDate').value;
+if(!f || !l || !b){ alert('عبي الاسم وتاريخ الميلاد'); return; }
+document.getElementById('step1').style.display='none';
+document.getElementById('loginScreen').style.display='block';
+   }
 </script>
+  
 </body>
 </html>
