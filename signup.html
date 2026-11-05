@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>انشاء حساب - JAWLA</title>
+<style>
+body{background:#0f0f0f;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px}
+.box{width:100%;max-width:380px;text-align:center}
+.logo{font-size:38px;font-weight:900;background:linear-gradient(45deg,#ff7a00,#a855f7);-webkit-background-clip:text;color:transparent}
+input{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:none;background:#1e1e1e;color:#fff;outline:none;box-sizing:border-box}
+.btn{width:100%;padding:14px;margin-top:12px;border:none;border-radius:12px;background:linear-gradient(45deg,#ff7a00,#a855f7);color:#fff;font-size:17px;font-weight:bold}
+a{color:#bbb;font-size:14px}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="logo">JAWLA</div>
+<h2>انشاء حساب جديد</h2>
+<p style="color:#aaa">انضم لجولة وشارك جولتك</p>
+<input id="name" type="text" placeholder="الاسم الكامل">
+<input id="email" type="email" placeholder="البريد الالكتروني">
+<input id="password" type="password" placeholder="كلمة المرور">
+<input id="password2" type="password" placeholder="تاكيد كلمة المرور">
+<button class="btn" onclick="signup()">انشاء حساب</button>
+<br><br>
+<a href="auth.html">عندك حساب؟ سجل دخول</a>
+</div>
+<script>
+function signup(){
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let pass=document.getElementById("password").value;
+let pass2=document.getElementById("password2").value;
+if(name==""||email==""||pass==""){alert("عبي كل الخانات");return;}
+if(pass!=pass2){alert("كلمة المرور مش زي بعضها");return;}
+localStorage.setItem("userName",name);
+localStorage.setItem("userEmail",email);
+localStorage.setItem("userPass",pass);
+alert("مبروك يا "+name+" تم انشاء حسابك");
+window.location.href="home.html";
+}
+</script>
+</body>
+</html>
