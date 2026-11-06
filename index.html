@@ -70,8 +70,16 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1p
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signOut, onAuthStateChanged, updateProfile, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, updateDoc, serverTimestamp, runTransaction, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig = { apiKey: "حط_الكونفيق_هنا", authDomain: "حط_الكونفيق_هنا", projectId: "حط_الكونفيق_هنا", storageBucket: "حط_الكونفيق_هنا", messagingSenderId: "حط_الكونفيق_هنا", appId: "حط_الكونفيق_هنا" };
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, updateDoc, serverTimestamp, runTransaction, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+  const firebaseConfig = {
+  apiKey: "AIzaSyBaCuF-iKp6hNEApmEoaYoRQi-GXj6ABcA",
+  authDomain: "jawla-bc7ca.firebaseapp.com",
+  projectId: "jawla-bc7ca",
+  storageBucket: "jawla-bc7ca.firebasestorage.app",
+  messagingSenderId: "131261683793",
+  appId: "1:131261683793:web:5c4e84eaf7ae5d719f8070",
+  measurementId: "G-Y1LQL1TZRN"
+};
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
