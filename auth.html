@@ -3,76 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الصقر الذهبي - تسجيل حقيقي</title>
+<title>الصقر الذهبي - تسجيل الدخول</title>
 <style>
-body{background:#0a0a0a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px}
-.box{width:100%;max-width:380px;background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px}
-h1{text-align:center;color:#d4af37}
-input{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #d4af37;background:#000;color:#fff;box-sizing:border-box}
-button{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:none;background:#d4af37;color:#000;font-weight:bold;font-size:17px;cursor:pointer}
-button.sec{background:transparent;color:#d4af37;border:1px solid #d4af37}
-#msg{text-align:center;min-height:24px;color:#ffcc00}
+body{font-family:Arial;background:#0f0f0f;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+.box{background:#1a1a1a;padding:28px;border-radius:16px;width:92%;max-width:380px;text-align:center}
+input{width:100%;padding:13px;margin:8px 0;border-radius:10px;border:none;background:#2a2a2a;color:#fff;box-sizing:border-box}
+button{width:100%;padding:13px;background:#FFD700;color:#000;border:none;border-radius:10px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+.link{color:#FFD700;cursor:pointer;display:block;margin-top:14px;font-size:14px}
+#msg{margin-top:14px;font-size:14px;min-height:22px}
 </style>
 </head>
 <body>
 <div class="box">
-<h1>🦅 الصقر الذهبي</h1>
-<p id="msg"></p>
-<input id="name" placeholder="الاسم - مثال: مالك">
-<input id="email" type="email" placeholder="البريد - مثال: malk@gmail.com">
-<input id="pass" type="password" placeholder="كلمة السر - 6 حروف على الأقل">
-<button id="btnSignup">إنشاء حساب جديد - حقيقي</button>
-<button id="btnLogin" class="sec">عندك حساب؟ سجل دخول</button>
-<button id="btnForgot" class="sec">نسيت كلمة السر؟</button>
+<h2>الصقر الذهبي</h2>
+<p>مرحباً بك في الصقر الذهبي</p>
+<input id="name" placeholder="الاسم الكامل">
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="pass" type="password" placeholder="كلمة المرور">
+<button onclick="signup()">إنشاء حساب جديد</button>
+<button onclick="login()" style="background:#fff">تسجيل الدخول</button>
+<span class="link" onclick="forgot()">هل نسيت كلمة المرور؟ اضغط هنا</span>
+<span class="link" onclick="goHome()" style="color:#aaa">تصفح بدون حساب</span>
+<div id="msg"></div>
 </div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBaCuF-iKp6hNEApmEoaYoRQi-GXj6ABcA",
-  authDomain: "jawla-bc7ca.firebaseapp.com",
-  projectId: "jawla-bc7ca",
-  storageBucket: "jawla-bc7ca.firebasestorage.app",
-  messagingSenderId: "131261683793",
-  appId: "1:131261683793:web:5c4e84eaf7ae5d719f8070",
-  measurementId: "G-Y1LQL1TZRN"
+  apiKey: "ضع هنا مفتاحك الحقيقي",
+  authDomain: "sagor-dhahabi.firebaseapp.com",
+  projectId: "sagor-dhahabi",
+  storageBucket: "sagor-dhahabi.firebasestorage.app",
+  messagingSenderId: "ضع هنا الرقم الحقيقي",
+  appId: "ضع هنا المعرف الحقيقي"
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const msg = document.getElementById('msg');
-function show(t){ msg.textContent = t; }
-document.getElementById('btnSignup').onclick = async () => {
+
+window.goHome = () => { window.location.href = "index.html"; };
+
+window.signup = async () => {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const pass = document.getElementById('pass').value;
-  if(!email.includes('@')){ show('دير بريد صح زي malk@gmail.com'); return; }
-  if(pass.length < 6){ show('كلمة السر لازم 6 حروف على الأقل'); return; }
-  try{
-    show('جاري إنشاء حسابك الحقيقي...');
+  const msg = document.getElementById('msg');
+  if(!name || !email || !pass){ msg.style.color="red"; msg.innerText="يرجى تعبئة جميع الحقول"; return; }
+  try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
-    if(name) await updateProfile(cred.user, { displayName: name });
-    await setDoc(doc(db, "users", cred.user.uid), { name: name || "", email: email, createdAt: new Date().toISOString() });
-    show('تم ✅ حسابك حقيقي وتسجل في Firebase');
-    setTimeout(()=> location.href = 'index.html', 1200);
-  }catch(e){ show('خطأ: ' + e.message); }
+    await updateProfile(cred.user, { displayName: name });
+    await sendEmailVerification(cred.user);
+    await setDoc(doc(db, "users", cred.user.uid), { name:name, email:email, createdAt: serverTimestamp() });
+    msg.style.color="#00ff88";
+    msg.innerText="تم إنشاء الحساب بنجاح. يرجى مراجعة بريدك الإلكتروني لتأكيد الحساب.";
+  } catch(e){
+    msg.style.color="red";
+    if(e.code==='auth/email-already-in-use') msg.innerText="هذا البريد مسجل مسبقاً، قم بتسجيل الدخول";
+    else if(e.code==='auth/weak-password') msg.innerText="كلمة المرور ضعيفة، يجب أن تكون 6 أحرف على الأقل";
+    else msg.innerText=e.message;
+  }
 };
-document.getElementById('btnLogin').onclick = async () => {
+
+window.login = async () => {
   const email = document.getElementById('email').value.trim();
   const pass = document.getElementById('pass').value;
+  const msg = document.getElementById('msg');
   try{
-    show('جاري الدخول...');
     await signInWithEmailAndPassword(auth, email, pass);
-    show('تم الدخول ✅');
-    setTimeout(()=> location.href = 'index.html', 800);
-  }catch(e){ show('خطأ في الدخول: ' + e.message); }
+    msg.style.color="#00ff88";
+    msg.innerText="تم تسجيل الدخول بنجاح. جارٍ تحويلك إلى الصفحة الرئيسية...";
+    setTimeout(()=>{ window.location.href="index.html"; }, 1000);
+  }catch(e){
+    msg.style.color="red";
+    msg.innerText="البريد الإلكتروني أو كلمة المرور غير صحيحة";
+  }
 };
-document.getElementById('btnForgot').onclick = async () => {
+
+window.forgot = async () => {
   const email = document.getElementById('email').value.trim();
-  if(!email.includes('@')){ show('اكتب بريدك أولا'); return; }
-  await sendPasswordResetEmail(auth, email);
-  show('بعتنا رابط استرجاع لبريدك');
+  const msg = document.getElementById('msg');
+  if(!email){ msg.style.color="red"; msg.innerText="اكتب بريدك الإلكتروني أولاً، ثم اضغط على نسيت كلمة المرور"; return; }
+  try{
+    await sendPasswordResetEmail(auth, email);
+    msg.style.color="#00ff88";
+    msg.innerText="تم إرسال رابط استعادة كلمة المرور إلى بريدك الإلكتروني.";
+  }catch(e){ msg.style.color="red"; msg.innerText="حدث خطأ. تأكد من صحة البريد الإلكتروني"; }
 };
 </script>
 </body>
