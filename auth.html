@@ -2,65 +2,78 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>جولة - دخول</title>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الصقر الذهبي - تسجيل حقيقي</title>
 <style>
-body{font-family:sans-serif;text-align:center;padding:30px;background:#f5f5f5}
-.box{background:white;padding:20px;border-radius:15px;max-width:350px;margin:auto}
-input{width:90%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ccc}
-button{width:95%;padding:12px;background:#ff6b35;color:white;border:none;border-radius:10px;font-size:16px}
-a{color:#ff6b35;cursor:pointer}
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px}
+.box{width:100%;max-width:380px;background:#111;border:2px solid #d4af37;border-radius:20px;padding:20px}
+h1{text-align:center;color:#d4af37}
+input{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #d4af37;background:#000;color:#fff;box-sizing:border-box}
+button{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:none;background:#d4af37;color:#000;font-weight:bold;font-size:17px;cursor:pointer}
+button.sec{background:transparent;color:#d4af37;border:1px solid #d4af37}
+#msg{text-align:center;min-height:24px;color:#ffcc00}
 </style>
 </head>
 <body>
 <div class="box">
-<h2 id="title">تسجيل الدخول</h2>
-<input type="email" id="email" placeholder="الإيميل">
-<input type="password" id="password" placeholder="كلمة السر">
-<button id="mainBtn" onclick="doAuth()">دخول</button>
-<p id="switchText">ما عندكش حساب؟ <a onclick="toggle()">إنشاء حساب جديد</a></p>
+<h1>🦅 الصقر الذهبي</h1>
+<p id="msg"></p>
+<input id="name" placeholder="الاسم - مثال: مالك">
+<input id="email" type="email" placeholder="البريد - مثال: malk@gmail.com">
+<input id="pass" type="password" placeholder="كلمة السر - 6 حروف على الأقل">
+<button id="btnSignup">إنشاء حساب جديد - حقيقي</button>
+<button id="btnLogin" class="sec">عندك حساب؟ سجل دخول</button>
+<button id="btnForgot" class="sec">نسيت كلمة السر؟</button>
 </div>
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "حط_هنا",
-  authDomain: "حط_هنا",
-  projectId: "حط_هنا",
-  appId: "حط_هنا"
+  apiKey: "AIzaSyBaCuF-iKp6hNEApmEoaYoRQi-GXj6ABcA",
+  authDomain: "jawla-bc7ca.firebaseapp.com",
+  projectId: "jawla-bc7ca",
+  storageBucket: "jawla-bc7ca.firebasestorage.app",
+  messagingSenderId: "131261683793",
+  appId: "1:131261683793:web:5c4e84eaf7ae5d719f8070",
+  measurementId: "G-Y1LQL1TZRN"
 };
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-let isLogin = true;
-function toggle(){
-  isLogin = !isLogin;
-  if(isLogin){
-    document.getElementById("title").innerText="تسجيل الدخول";
-    document.getElementById("mainBtn").innerText="دخول";
-    document.getElementById("switchText").innerHTML='ما عندكش حساب؟ <a onclick="toggle()">إنشاء حساب جديد</a>';
-  } else {
-    document.getElementById("title").innerText="إنشاء حساب جديد";
-    document.getElementById("mainBtn").innerText="إنشاء حساب";
-    document.getElementById("switchText").innerHTML='عندك حساب؟ <a onclick="toggle()">سجل دخول</a>';
-  }
-}
-function doAuth(){
-  const email=document.getElementById("email").value;
-  const password=document.getElementById("password").value;
-  if(!email||!password){alert("عبي الإيميل وكلمة السر");return;}
-  if(isLogin){
-    auth.signInWithEmailAndPassword(email,password).then((u)=>{
-      localStorage.setItem("user",u.user.email);
-      alert("تم الدخول بنجاح!");
-      window.location.href="home.html";
-    }).catch(()=>alert("خطأ: تأكد من الإيميل وكلمة السر"));
-  } else {
-    auth.createUserWithEmailAndPassword(email,password).then((u)=>{
-      localStorage.setItem("user",u.user.email);
-      alert("تم إنشاء الحساب بنجاح!");
-      window.location.href="home.html";
-    }).catch((e)=>alert("خطأ: "+e.message));
-  }
-}
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const msg = document.getElementById('msg');
+function show(t){ msg.textContent = t; }
+document.getElementById('btnSignup').onclick = async () => {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('pass').value;
+  if(!email.includes('@')){ show('دير بريد صح زي malk@gmail.com'); return; }
+  if(pass.length < 6){ show('كلمة السر لازم 6 حروف على الأقل'); return; }
+  try{
+    show('جاري إنشاء حسابك الحقيقي...');
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    if(name) await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(db, "users", cred.user.uid), { name: name || "", email: email, createdAt: new Date().toISOString() });
+    show('تم ✅ حسابك حقيقي وتسجل في Firebase');
+    setTimeout(()=> location.href = 'index.html', 1200);
+  }catch(e){ show('خطأ: ' + e.message); }
+};
+document.getElementById('btnLogin').onclick = async () => {
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('pass').value;
+  try{
+    show('جاري الدخول...');
+    await signInWithEmailAndPassword(auth, email, pass);
+    show('تم الدخول ✅');
+    setTimeout(()=> location.href = 'index.html', 800);
+  }catch(e){ show('خطأ في الدخول: ' + e.message); }
+};
+document.getElementById('btnForgot').onclick = async () => {
+  const email = document.getElementById('email').value.trim();
+  if(!email.includes('@')){ show('اكتب بريدك أولا'); return; }
+  await sendPasswordResetEmail(auth, email);
+  show('بعتنا رابط استرجاع لبريدك');
+};
 </script>
 </body>
 </html>
