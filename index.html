@@ -2,83 +2,124 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الصقر الذهبي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الصقر الذهبي - حقيقي 100%</title>
 <style>
-body{font-family:Arial;background:#000;color:#fff;margin:0;padding-bottom:90px}
-header{display:flex;justify-content:space-between;padding:15px;background:#111;align-items:center;position:sticky;top:0;z-index:10}
-.feed{max-width:420px;margin:auto;padding:10px}
-.video-card{background:#1a1a1a;border-radius:15px;overflow:hidden;margin-bottom:20px}
-.video-card img{width:100%;display:block}
-.info{padding:12px}
-.actions{display:flex;gap:10px;padding:0 12px 12px}
-.actions button{background:#2a2a2a;color:#fff;border:none;padding:10px 16px;border-radius:20px;cursor:pointer}
-.actions button.liked{background:#FFD700;color:#000}
-#loginBar{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:1px solid #333;padding:15px;display:none;z-index:100;text-align:center}
-#loginBar button{background:#FFD700;color:#000;border:none;padding:12px 20px;border-radius:10px;font-weight:bold;margin:5px;cursor:pointer}
-#loginBar .close{background:#333;color:#fff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+body{background:#000;color:#fff}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#0a0a0a;display:flex;flex-direction:column}
+.topbar{display:flex;justify-content:space-between;padding:12px;background:#000;border-bottom:1px solid #222}
+.logo{color:#E8C86A;font-size:22px;font-weight:900}
+.topbar button{background:none;border:none;color:#E8C86A;font-size:20px;cursor:pointer}
+.tabs{display:flex;gap:8px;padding:10px;overflow:auto}
+.tab{background:#2a2a2a;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;white-space:nowrap}
+.tab.active,.tab.gold{background:#D4AF37;color:#000;font-weight:800}
+.feed{position:relative;background:#111;min-height:520px;overflow:hidden}
+.feed img.main{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;z-index:2;background:linear-gradient(transparent,rgba(0,0,0,.78))}
+.side{position:absolute;left:12px;bottom:140px;display:flex;flex-direction:column;gap:10px;text-align:center;z-index:3}
+.side button{background:rgba(0,0,0,.6);border:1px solid #D4AF37;color:#E8C86A;width:54px;height:54px;border-radius:50%;font-size:22px;cursor:pointer}
+.side span{font-size:13px;color:#E8C86A;font-weight:700;display:block}
+.swipe{text-align:center;background:rgba(0,0,0,.65);border:1px solid #E8C86A;padding:8px;border-radius:20px;font-size:13px;color:#E8C86A;cursor:pointer}
+.bottom{display:flex;justify-content:space-between;align-items:center;background:#000;border-top:1px solid #222;padding:8px 10px}
+.bottom button{background:none;border:none;color:#E8C86A;font-size:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.bottom .big{background:#E8C86A;color:#000;width:62px;height:56px;border-radius:14px;font-size:30px;font-weight:900}
+.screen{display:none;flex:1;overflow:auto;padding:12px}
+.screen.active{display:block}
+.avatar{width:130px;height:130px;border-radius:50%;border:4px solid #D4AF37;object-fit:cover}
+.stats{display:flex;justify-content:space-around;margin:12px 0;text-align:center}
+.stats b{color:#E8C86A;font-size:20px;display:block}
+.gold-btn{background:linear-gradient(#F7D67A,#D4AF37);border:none;width:100%;padding:14px;border-radius:12px;font-size:17px;font-weight:900;cursor:pointer;color:#000;margin-top:8px}
+.card{background:#111;border:1px solid #D4AF37;border-radius:12px;padding:14px;margin:10px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.grid img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+.row{background:#111;border:1px solid #333;border-radius:10px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;cursor:pointer}
+.gifts{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:10px}
+.gift{background:#000;border:1px solid #D4AF37;border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-size:12px}
+#toast{position:fixed;top:0;left:0;right:0;background:#D4AF37;color:#000;text-align:center;padding:13px;font-weight:800;display:none;z-index:99}
+input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #D4AF37;background:#111;color:#fff}
+.post-img{width:100%;border-radius:12px;margin-top:8px}
+.cbox{background:#000;border:1px solid #333;border-radius:10px;padding:8px;margin:6px 0;font-size:14px}
+.lmsg{background:#222;border-radius:10px;padding:8px;margin:5px 0;font-size:14px}
 </style>
 </head>
 <body>
-<header>
-<b>🦅 الصقر الذهبي</b>
-<button id="topBtn" onclick="goAuth()" style="background:#FFD700;border:none;padding:8px 14px;border-radius:8px;font-weight:bold">تسجيل الدخول</button>
-</header>
-<div class="feed">
-<div class="video-card">
-<img src="https://picsum.photos/400/500">
-<div class="info"><b>مستخدم تجريبي</b><p>هذا فيديو تجريبي للعرض. التطبيق مفتوح الآن.</p></div>
-<div class="actions">
-<button onclick="doLike(this)">❤️ إعجاب</button>
-<button onclick="doComment()">💬 تعليق</button>
+<div class="app"><div id="toast"></div>
+<div id="screen-home" style="display:flex;flex-direction:column;flex:1">
+<div class="topbar"><div class="logo">الصقر الذهبي</div><div><button onclick="openScreen('search')">🔍</button><button onclick="openScreen('settings')">⚙️</button></div></div>
+<div class="tabs"><button class="tab gold" onclick="openScreen('live')">بث مباشر</button><button class="tab" onclick="openScreen('friends')">أتابعه</button><button class="tab active">لك</button></div>
+<div class="feed"><img class="main" id="feedImg" src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800">
+<div class="side"><div><button onclick="likeFeed()">🦅</button><span id="likeCount">0</span></div><div><button onclick="openComments()">💬</button><span id="commentCount">0</span></div><div><button onclick="saveFeed()">🔖</button><span id="saveCount">0</span></div><div><button onclick="shareFeed()">↗️</button><span>مشاركة</span></div><div><button onclick="reportFeed()">🚩</button><span>إبلاغ</span></div></div>
+<div class="overlay"><div><h3 style="color:#E8C86A">الصقر الذهبي <button onclick="followFeed()" style="background:#E8C86A;border:none;padding:4px 12px;border-radius:50%;font-weight:900;cursor:pointer">+</button></h3><p style="font-size:14px">نوثق رحلات الصقارة والبرية بأصالة واحتراف. لقطات من الصيد بالصقر في الطبيعة.</p></div><div class="swipe" onclick="nextVideo()">اسحب للأعلى ، الفيديو التالي</div></div></div>
+<div id="userBox" class="card">تتصفح كضيف</div>
+<div class="card"><h3 style="color:#E8C86A">انشر منشور حقيقي</h3><textarea id="newPostText" placeholder="شن تبي تنشر؟"></textarea><input id="newPostImg" placeholder="رابط صورة (اختياري)"><button class="gold-btn" onclick="createPost()">نشر حقيقي</button></div>
+<div class="card"><h3 style="color:#E8C86A">التعليقات الحقيقية</h3><div id="commentsList"></div><input id="commentInput" placeholder="اكتب تعليق..."><button class="gold-btn" onclick="addComment()">ارسال تعليق</button></div>
+<div id="postsList"></div>
 </div>
-</div>
-<div class="video-card">
-<img src="https://picsum.photos/400/501">
-<div class="info"><b>مستخدم آخر</b><p>شاهد بدون حساب، وتفاعل بعد إنشاء حساب.</p></div>
-<div class="actions">
-<button onclick="doLike(this)">❤️ إعجاب</button>
-<button onclick="doComment()">💬 تعليق</button>
-</div>
-</div>
-</div>
-<div id="loginBar">
-<p style="margin:0 0 10px">يرجى إنشاء حساب للتفاعل مع المنشورات</p>
-<button onclick="goAuth()">إنشاء حساب</button>
-<button onclick="goAuth()">تسجيل الدخول</button>
-<button class="close" onclick="hideBar()">إغلاق</button>
+<div id="screen-search" class="screen"><h2 style="color:#E8C86A">البحث</h2><input placeholder="دور على الناس..." oninput="searchText(this.value)"><div id="searchResult">اكتب باش تدور</div><button class="gold-btn" onclick="goHome()">رجوع</button></div>
+<div id="screen-friends" class="screen"><h2 style="color:#E8C86A">الاصدقاء</h2><div id="friendsList">جار التحميل...</div></div>
+<div id="screen-messages" class="screen"><h2 style="color:#E8C86A">الرسائل</h2><div id="chatList"></div><div id="chatBox"></div><input id="msgInput" placeholder="اكتب رسالة..."><button class="gold-btn" onclick="sendMsg()">ارسال رسالة حقيقية</button></div>
+<div id="screen-profile" class="screen"><div style="text-align:center"><img class="avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400"><h2 style="color:#E8C86A" id="profileName">الصقر الذهبي</h2><p id="profileUser">@libyanfalcon</p></div><div class="stats"><div><b id="followersCount">0</b>متابعين</div><div><b id="followingCount">0</b>يتابع</div><div><b id="likesTotal">0</b>اعجابات</div></div><button class="gold-btn" onclick="editProfile()">تعديل البروفايل</button><div class="row" onclick="shareFeed()"><span>مشاركة الملف الشخصي</span><span>↗️</span></div><div class="row" onclick="blockFeed()"><span>حظر</span><span>🚫</span></div><div class="row" onclick="reportFeed()"><span>ابلاغ</span><span>🚩</span></div><div class="grid"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400"><img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400"><img src="https://images.unsplash.com/photo-1549608276-5786777e6587?w=400"><img src="https://images.unsplash.com/photo-1611689342806-0863700ce1e4?w=400"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400"></div><div id="profilePosts"></div></div>
+<div id="screen-live" class="screen"><div class="card" style="display:flex;justify-content:space-between"><b>🔴 LIVE</b><b id="liveViewers">0 يشاهد</b></div><video id="liveVideo" autoplay playsinline muted style="width:100%;border-radius:12px;background:#000"></video><button class="gold-btn" onclick="startLive()">ابدأ بث حقيقي من كاميرتك</button><div class="card" id="liveChat">جار التحميل...</div><input id="liveMsg" placeholder="اكتب تعليق في اللايف..."><button class="gold-btn" onclick="sendLive()">ارسال تعليق حقيقي</button><h3 style="color:#E8C86A;text-align:center;margin:12px 0">الهدايا</h3><div class="gifts"><div class="gift" onclick="sendGift('وردة حمراء',50)">🌹<br>وردة<br>50</div><div class="gift" onclick="sendGift('قلوب حمراء',99)">❤️<br>قلوب<br>99</div><div class="gift" onclick="sendGift('كرة قدم',199)">⚽<br>كرة<br>199</div><div class="gift" onclick="sendGift('صقر ذهبي',999)">🦅<br>صقر ذهبي<br>999</div><div class="gift" onclick="sendGift('فراولة',30)">🍓<br>فراولة<br>30</div><div class="gift" onclick="sendGift('تاج ذهبي',1999)">👑<br>تاج<br>1999</div><div class="gift" onclick="sendGift('سيارة',1500)">🚗<br>سيارة<br>1500</div><div class="gift" onclick="sendGift('خاتم',500)">💍<br>خاتم<br>500</div><div class="gift" onclick="sendGift('نجمة',100)">⭐<br>نجمة<br>100</div><div class="gift" onclick="sendGift('موسيقى',120)">🎵<br>موسيقى<br>120</div><div class="gift" onclick="sendGift('نار',300)">🔥<br>نار<br>300</div><div class="gift" onclick="sendGift('دب',400)">🧸<br>دب<br>400</div></div><button class="gold-btn" onclick="sendGift('صندوق الدعم الذهبي',5000)">🎁 صندوق الدعم الذهبي</button></div>
+<div id="screen-wallet" class="screen"><div style="text-align:center"><p>الرصيد المقدر</p><h1 style="color:#E8C86A;font-size:44px">USD <span id="walletUSD">0.00</span></h1><p>عملات: <b id="walletCoins" style="color:#E8C86A">0</b></p></div><div class="card"><span>عملاتي</span><span id="walletCoins2">0</span></div><h3 style="color:#E8C86A">LIVE FEST</h3><div class="card" style="display:flex;justify-content:space-around;text-align:center"><div>🏆<br>مكافآت LIVE</div><div>🎒<br>الربح</div><div>📅<br>الفعاليات</div><div>⚙️<br>مدير الاشتراكات</div></div><div id="walletHistory"></div><button class="gold-btn" onclick="buyCoins()">الحصول على عملات - قريبا</button></div>
+<div id="screen-auth" class="screen" style="text-align:center"><div style="font-size:50px">🦅</div><h2 style="color:#E8C86A">الصقر الذهبي</h2><p>انشاء حساب حقيقي</p><div style="display:flex;gap:8px"><button onclick="showAuth('login')" style="flex:1;padding:12px;border-radius:10px;background:#222;color:#E8C86A;border:1px solid #D4AF37">دخول</button><button onclick="showAuth('register')" style="flex:1;padding:12px;border-radius:10px;background:#D4AF37;font-weight:900">انشاء حساب</button></div><div id="auth-register"><input id="regName" placeholder="الاسم الكامل"><input id="regEmail" type="email" placeholder="الايميل الحقيقي"><input id="regUser" placeholder="اسم المستخدم"><input id="regPass" type="password" placeholder="كلمة السر"><input id="regPass2" type="password" placeholder="تأكيد كلمة السر"><button class="gold-btn" onclick="doRegister()">انشاء حساب حقيقي</button></div><div id="auth-login" style="display:none"><input id="loginEmail" type="email" placeholder="الايميل"><input id="loginPass" type="password" placeholder="كلمة السر"><button class="gold-btn" onclick="doLogin()">دخول</button><p onclick="doForgot()" style="color:#E8C86A;cursor:pointer;margin-top:10px">نسيت كلمة السر؟</p></div><button onclick="goHome()" style="background:none;border:none;color:#aaa;margin-top:12px">الرجوع بدون حساب</button></div>
+<div id="screen-settings" class="screen"><h2 style="color:#E8C86A;text-align:center">الاعدادات</h2><div style="text-align:center"><img class="avatar" src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400"><h3 id="settingsName">الصقر الليبي</h3><p id="settingsUser">غير مسجل دخول</p></div><div class="card"><b>الحساب</b><div class="row" onclick="openScreen('auth')"><span>ادارة الحساب</span><span>›</span></div></div><div class="card"><b>الرصيد</b><div class="row"><span>رصيد: <span id="coinsLabel">0</span> عملة</span><span>›</span></div><div class="row" onclick="buyCoins()"><span>الحصول على عملات - قريبا</span><span>قريبا</span></div></div><div class="card"><b>المحتوى والعرض</b><div class="row" onclick="showToast('الاشعارات مفعلة')"><span>الاشعارات</span><span>›</span></div><div class="row" onclick="showToast('اللغة: العربية')"><span>اللغة - جميع اللغات</span><span>›</span></div><div class="row" onclick="showToast('وضع العرض: داكن')"><span>وضع العرض</span><span>›</span></div></div><div class="card"><b>الدعم والخصوصية</b><div class="row" onclick="showToast('الخصوصية محمية')"><span>الخصوصية</span><span>›</span></div><div class="row" onclick="showToast('قائمة الحظر من قاعدة البيانات')"><span>قائمة الحظر</span><span>›</span></div><div class="row" onclick="changePass()"><span>الامان - تغيير كلمة السر</span><span>›</span></div><div class="row" onclick="deleteAccount()"><span>حذف الحساب</span><span>›</span></div><div class="row" onclick="doLogout()"><span>تسجيل الخروج</span><span>›</span></div></div><button class="gold-btn" onclick="buyCoins()">شراء عملات - قريبا فقط</button></div>
+<div id="screen-camera" class="screen" style="text-align:center"><h2>الكاميرا</h2><video id="camVideo" autoplay playsinline style="width:100%;border-radius:12px;background:#000"></video><p id="filterName" style="color:#E8C86A">الفلتر: طبيعي</p><div style="display:flex;gap:8px;overflow:auto;padding:10px"><button onclick="setFilter(this,'طبيعي')">طبيعي</button><button onclick="setFilter(this,'ذهبي')">ذهبي</button><button onclick="setFilter(this,'صحراء')">صحراء</button><button onclick="setFilter(this,'ليل')">ليل</button></div><button class="gold-btn" onclick="takePhoto()">التقاط صورة</button><button class="gold-btn" onclick="goHome()" style="background:#222;color:#E8C86A;border:1px solid #D4AF37">الغاء</button></div>
+<div class="bottom"><button onclick="openScreen('home')">🏠<span>الرئيسية</span></button><button onclick="openScreen('friends')">👥<span>الاصدقاء</span></button><button class="big" onclick="openCamera()">+</button><button onclick="openScreen('messages')">💬<span>رسائل</span></button><button onclick="openScreen('profile')">👤<span>بروفايل</span></button></div>
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyBaCuF-iKp6hNEApmEoaYoRQi-GXj6ABcA",
-  authDomain: "jawla-bc7ca.firebaseapp.com",
-  projectId: "jawla-bc7ca",
-  storageBucket: "jawla-bc7ca.firebasestorage.app",
-  messagingSenderId: "131261683793",
-  appId: "1:131261683793:web:5c4e84eaf7ae5d719f8070",
-  measurementId: "G-Y1LQL1TZRN"
-};
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signOut, onAuthStateChanged, updateProfile, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, updateDoc, serverTimestamp, runTransaction, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = { apiKey: "حط_الكونفيق_هنا", authDomain: "حط_الكونفيق_هنا", projectId: "حط_الكونفيق_هنا", storageBucket: "حط_الكونفيق_هنا", messagingSenderId: "حط_الكونفيق_هنا", appId: "حط_الكونفيق_هنا" };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-let currentUser = null;
-onAuthStateChanged(auth, (user)=>{
-  currentUser = user;
-  if(user){ document.getElementById('topBtn').innerText = user.displayName || "حسابي"; }
-});
-window.goAuth = () => { window.location.href = "auth.html"; };
-window.hideBar = () => { document.getElementById('loginBar').style.display = "none"; };
-window.doLike = (btn) => {
-  if(!currentUser){ document.getElementById('loginBar').style.display = "block"; return; }
-  btn.classList.toggle('liked');
-  btn.innerText =btn.classList.contains('liked') ? "❤️ تم الإعجاب" : "❤️ إعجاب";
-};
-window.doComment = () => {
-  if(!currentUser){ document.getElementById('loginBar').style.display = "block"; return; }
-  const c = prompt("اكتب تعليقك:");
-  if(c) alert("تم نشر تعليقك: " + c);
-};
+const db = getFirestore(app);
+window.showToast = (m)=>{ let t=document.getElementById('toast'); t.innerText=m; t.style.display='block'; setTimeout(()=>t.style.display='none',3500); };
+window.openScreen = (n)=>{ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('screen-home').style.display='none'; if(n==='home'){ document.getElementById('screen-home').style.display='flex'; return; } let el=document.getElementById('screen-'+n); if(el) el.classList.add('active'); };
+window.goHome = ()=>openScreen('home');
+window.showAuth = (t)=>{ document.getElementById('auth-register').style.display=t==='register'?'block':'none'; document.getElementById('auth-login').style.display=t==='login'?'block':'none'; };
+window.needAuth = ()=>{ if(!auth.currentUser){ showToast('سجل دخول قبل'); openScreen('auth'); return false; } return true; };
+window.buyCoins = ()=>{ showToast('شراء العملات قريبا فقط'); };
+window.doRegister = async ()=>{ let name=document.getElementById('regName').value.trim(); let email=document.getElementById('regEmail').value.trim(); let user=document.getElementById('regUser').value.trim(); let p1=document.getElementById('regPass').value; let p2=document.getElementById('regPass2').value; if(!name||!email||!user||!p1) return showToast('عبي كل الحقول'); if(p1.length<6) return showToast('كلمة السر لازم 6 احرف'); if(p1!==p2) return showToast('كلمة السر مش مطابقة'); try{ let cred=await createUserWithEmailAndPassword(auth,email,p1); await updateProfile(cred.user,{displayName:name}); await setDoc(doc(db,'users',cred.user.uid),{name,username:user,email,coins:1000,createdAt:serverTimestamp()}); await sendEmailVerification(cred.user); showToast('تم انشاء حسابك، افتح ايميلك واكده'); openScreen('home'); }catch(e){ showToast(e.message); } };
+window.doLogin = async ()=>{ let email=document.getElementById('loginEmail').value.trim(); let pass=document.getElementById('loginPass').value; try{ let cred=await signInWithEmailAndPassword(auth,email,pass); showToast('اهلا '+cred.user.displayName); openScreen('home'); }catch(e){ showToast('الايميل او كلمة السر غلط'); } };
+window.doForgot = async ()=>{ let email=document.getElementById('loginEmail').value.trim()||prompt('اكتب ايميلك'); if(!email) return; await sendPasswordResetEmail(auth,email); showToast('وصلتك رسالة في ايميلك'); };
+window.changePass = async ()=>{ if(!needAuth()) return; await sendPasswordResetEmail(auth,auth.currentUser.email); showToast('وصلتك رسالة في ايميلك'); };
+window.doLogout = async ()=>{ if(auth.currentUser) await signOut(auth); showToast('تم الخروج'); openScreen('home'); };
+window.deleteAccount = async ()=>{ if(!confirm('متاكد تحذف حسابك؟')) return; if(!auth.currentUser) return showToast('سجل دخول'); try{ await deleteDoc(doc(db,'users',auth.currentUser.uid)); await deleteUser(auth.currentUser); showToast('تم الحذف'); }catch(e){ showToast('سجل دخول من جديد ثم احذف'); } };
+window.createPost = async ()=>{ if(!needAuth()) return; let t=document.getElementById('newPostText').value.trim(); let img=document.getElementById('newPostImg').value.trim(); if(!t) return showToast('اكتب شي قبل النشر'); await addDoc(collection(db,'posts'),{text:t,image:img||'',authorId:auth.currentUser.uid,authorName:auth.currentUser.displayName||'',createdAt:serverTimestamp(),likes:0}); document.getElementById('newPostText').value=''; showToast('تم النشر حقيقي'); };
+onSnapshot(query(collection(db,'posts'),orderBy('createdAt','desc')),(snap)=>{ let html=''; let total=0; snap.forEach(d=>{ let p=d.data(); total+=p.likes||0; html+='<div class="card"><b>'+(p.authorName||'مستخدم')+'</b><p>'+p.text+'</p>'+(p.image?'<img src="'+p.image+'" class="post-img">':'')+'<p style="color:#E8C86A">❤️ '+(p.likes||0)+'</p><button class="gold-btn" onclick="likePost(\''+d.id+'\')">اعجاب حقيقي</button><input id="c-'+d.id+'" placeholder="تعليق..."><button class="gold-btn" onclick="addCommentToPost(\''+d.id+'\')">تعليق حقيقي</button></div>'; }); document.getElementById('postsList').innerHTML=html||'مافيش منشورات توا'; document.getElementById('likesTotal').innerText=total; });
+window.likePost = async (id)=>{ if(!needAuth()) return; let likeRef=doc(db,'posts',id,'likes',auth.currentUser.uid); let snap=await getDoc(likeRef); if(snap.exists()) return showToast('درت اعجاب من قبل'); await setDoc(likeRef,{userId:auth.currentUser.uid,createdAt:serverTimestamp()}); await runTransaction(db, async(t)=>{ let ref=doc(db,'posts',id); let s=await t.get(ref); t.update(ref,{likes:(s.data().likes||0)+1}); }); showToast('تم الاعجاب'); };
+window.addCommentToPost = async (postId)=>{ if(!needAuth()) return; let v=document.getElementById('c-'+postId).value.trim(); if(!v) return; await addDoc(collection(db,'posts',postId,'comments'),{text:v,authorName:auth.currentUser.displayName,createdAt:serverTimestamp()}); showToast('تم التعليق'); };
+window.likeFeed = async ()=>{ if(!needAuth()) return; let ref=doc(db,'feed','main'); let likeRef=doc(db,'feed','main','likes',auth.currentUser.uid); let s=await getDoc(likeRef); if(s.exists()) return showToast('درت اعجاب من قبل'); await setDoc(likeRef,{userId:auth.currentUser.uid,createdAt:serverTimestamp()}); await runTransaction(db, async(t)=>{ let snap=await t.get(ref); let n=(snap.exists()?snap.data().likes:0)+1; t.set(ref,{likes:n}); document.getElementById('likeCount').innerText=n; }); };
+window.saveFeed = async ()=>{ if(!needAuth()) return; await addDoc(collection(db,'saves'),{userId:auth.currentUser.uid,feed:'main',createdAt:serverTimestamp()}); showToast('تم الحفظ في حسابك'); };
+window.shareFeed = async ()=>{ try{ await navigator.clipboard.writeText(location.href); }catch(e){} showToast('تم نسخ الرابط'); };
+window.reportFeed = async ()=>{ if(!needAuth()) return; await addDoc(collection(db,'reports'),{from:auth.currentUser.uid,target:'main',createdAt:serverTimestamp()}); showToast('تم الابلاغ'); };
+window.blockFeed = async ()=>{ if(!needAuth()) return; await addDoc(collection(db,'blocks'),{from:auth.currentUser.uid,target:'main',createdAt:serverTimestamp()}); showToast('تم الحظر'); };
+window.followFeed = async ()=>{ if(!needAuth()) return; await addDoc(collection(db,'follows'),{from:auth.currentUser.uid,to:'main',createdAt:serverTimestamp()}); showToast('تمت المتابعة'); };
+window.openComments = ()=>{ document.getElementById('commentInput').focus(); };
+window.addComment = async ()=>{ if(!needAuth()) return; let v=document.getElementById('commentInput').value.trim(); if(!v) return; await addDoc(collection(db,'feedComments'),{text:v,authorName:auth.currentUser.displayName,createdAt:serverTimestamp()}); document.getElementById('commentInput').value=''; showToast('تم التعليق'); };
+onSnapshot(query(collection(db,'feedComments'),orderBy('createdAt','desc')),(snap)=>{ let html=''; snap.forEach(d=>{ let c=d.data(); html+='<div class="cbox">'+c.authorName+': '+c.text+'</div>'; }); document.getElementById('commentsList').innerHTML=html||'مافيش تعليقات'; document.getElementById('commentCount').innerText=snap.size; });
+let vids=['https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800','https://images.unsplash.com/photo-1611689342806-0863700ce1e4?w=800','https://images.unsplash.com/photo-1549608276-5786777e6587?w=800']; let vi=0;
+window.nextVideo = ()=>{ vi=(vi+1)%vids.length; document.getElementById('feedImg').src=vids[vi]; };
+window.searchText = async (v)=>{ if(!v) return document.getElementById('searchResult').innerText='اكتب باش تدور'; let q=query(collection(db,'users'),where('username','>=',v),where('username','<=',v+'\uf8ff')); let s=await getDocs(q); let html=''; s.forEach(d=>{ let u=d.data(); html+='<div class="card">'+u.name+' @'+u.username+' <button onclick="openChat(\''+d.id+'\',\''+u.name+'\')" style="background:#D4AF37;border:none;padding:6px 12px;border-radius:10px">راسل</button></div>'; }); document.getElementById('searchResult').innerHTML=html||'مافيش نتائج'; };
+window.editProfile = async ()=>{ if(!needAuth()) return; let n=prompt('اكتب اسمك الجديد'); if(!n) return; await updateProfile(auth.currentUser,{displayName:n}); await updateDoc(doc(db,'users',auth.currentUser.uid),{name:n}); showToast('تم التعديل'); };
+let currentChat=null;
+window.openChat = (uid,name)=>{ currentChat=uid; openScreen('messages'); document.getElementById('chatBox').innerHTML='<b>محادثة مع '+name+'</b>'; };
+window.sendMsg = async ()=>{ if(!needAuth()) return; if(!currentChat) return showToast('اختار شخص من البحث'); let v=document.getElementById('msgInput').value.trim(); if(!v) return; await addDoc(collection(db,'messages'),{from:auth.currentUser.uid,to:currentChat,text:v,createdAt:serverTimestamp()}); document.getElementById('msgInput').value=''; showToast('تم الارسال'); };
+onSnapshot(collection(db,'users'),(snap)=>{ let html=''; snap.forEach(d=>{ let u=d.data(); if(auth.currentUser && d.id===auth.currentUser.uid) return; html+='<div class="row"><span>'+u.name+' @'+u.username+'</span><button onclick="openChat(\''+d.id+'\',\''+u.name+'\')" style="background:#D4AF37;border:none;padding:6px 12px;border-radius:10px">راسل</button></div>'; }); document.getElementById('friendsList').innerHTML=html||'مافيش مستخدمين بعد'; document.getElementById('chatList').innerHTML=html||'مافيش محادثات'; });
+window.followUser = async (uid)=>{ if(!needAuth()) return; await addDoc(collection(db,'follows'),{from:auth.currentUser.uid,to:uid,createdAt:serverTimestamp()}); showToast('تمت المتابعة'); };
+onSnapshot(collection(db,'follows'),(snap)=>{ document.getElementById('followersCount').innerText=snap.size; document.getElementById('followingCount').innerText=snap.size; });
+window.startLive = async ()=>{ if(!needAuth()) return; try{ let s=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); document.getElementById('liveVideo').srcObject=s; await addDoc(collection(db,'liveViews'),{userId:auth.currentUser.uid,createdAt:serverTimestamp()}); showToast('انت توا لايف حقيقي من كاميرتك'); }catch(e){ showToast('اسمح للكاميرا'); } };
+onSnapshot(collection(db,'liveViews'),(snap)=>{ document.getElementById('liveViewers').innerText=snap.size+' يشاهد'; });
+window.sendLive = async ()=>{ if(!needAuth()) return; let v=document.getElementById('liveMsg').value.trim(); if(!v) return; await addDoc(collection(db,'liveChat'),{text:v,authorName:auth.currentUser.displayName,createdAt:serverTimestamp()}); document.getElementById('liveMsg').value=''; };
+onSnapshot(query(collection(db,'liveChat'),orderBy('createdAt','desc')),(snap)=>{ let html=''; snap.forEach(d=>{ let m=d.data(); html+='<div class="lmsg">'+m.authorName+': '+m.text+'</div>'; }); document.getElementById('liveChat').innerHTML=html||'مافيش تعليقات'; });
+window.sendGift = async (name,price)=>{ if(!needAuth()) return; let ref=doc(db,'users',auth.currentUser.uid); try{ await runTransaction(db, async(t)=>{ let s=await t.get(ref); let coins=s.data().coins||0; if(coins<price) throw new Error('رصيد غير كافي'); t.update(ref,{coins:coins-price}); }); await addDoc(collection(db,'gifts'),{from:auth.currentUser.displayName,gift:name,price,createdAt:serverTimestamp()}); showToast('تم ارسال '+name); }catch(e){ showToast(e.message==='رصيد غير كافي'?'رصيدك غير كافي':e.message); } };
+onSnapshot(query(collection(db,'gifts'),orderBy('createdAt','desc')),(snap)=>{ let html=''; snap.forEach(d=>{ let g=d.data(); html+='<div class="card">ارسل '+g.from+' '+g.gift+' ، '+g.price+' عملة</div>'; }); document.getElementById('walletHistory').innerHTML=html; });
+window.openCamera = async ()=>{ openScreen('camera'); try{ let s=await navigator.mediaDevices.getUserMedia({video:true}); document.getElementById('camVideo').srcObject=s; }catch(e){ showToast('اسمح للكاميرا'); } };
+window.setFilter = (btn,name)=>{ document.getElementById('filterName').innerText='الفلتر: '+name; let v=document.getElementById('camVideo'); v.style.filter=name==='ذهبي'?'sepia(.8)':name==='ليل'?'brightness(.6)':name==='صحراء'?'saturate(1.5)':'none'; };
+window.takePhoto = ()=>{ showToast('تم التقاط الصورة'); goHome(); };
+onAuthStateChanged(auth, async (user)=>{ if(user){ let snap=await getDoc(doc(db,'users',user.uid)); let data=snap.exists()?snap.data():{}; document.getElementById('userBox').innerText='مسجل دخول: '+(user.displayName||'')+' ، رصيدك: '+(data.coins||0)+' عملة ، '+(user.emailVerified?'حساب مؤكد':'افتح ايميلك واكد الحساب'); document.getElementById('settingsUser').innerText=(user.displayName||'')+' ، '+(user.emailVerified?'مؤكد':'غير مؤكد'); document.getElementById('settingsName').innerText=user.displayName||'الصقر الليبي'; document.getElementById('profileName').innerText=user.displayName||'الصقر الليبي'; document.getElementById('profileUser').innerText='@'+(data.username||'libyanfalcon'); document.getElementById('walletCoins').innerText=data.coins||0; document.getElementById('walletCoins2').innerText=data.coins||0; document.getElementById('coinsLabel').innerText=data.coins||0; document.getElementById('walletUSD').innerText=((data.coins||0)*0.01).toFixed(2); } else { document.getElementById('userBox').innerText='تتصفح كضيف ، سجل حساب'; document.getElementById('settingsUser').innerText='غير مسجل دخول'; } });
 </script>
 </body>
 </html>
