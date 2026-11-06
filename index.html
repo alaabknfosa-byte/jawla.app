@@ -2,155 +2,194 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAWLA - جولة</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الصقر الذهبي</title>
 <style>
-*{box-sizing:border-box;font-family:system-ui}
-body{background:#000;color:#fff;margin:0;padding:0}
-header{background:#000;padding:12px;text-align:center;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-header b{font-size:22px} header b span{color:#fe2c55}
-button{background:#fe2c55;color:#fff;border:0;padding:11px 16px;border-radius:10px;font-weight:bold;cursor:pointer;width:100%;margin-top:8px}
-input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin-top:8px}
-.card{background:#111;margin:10px;padding:12px;border-radius:14px;border:1px solid #222}
-.tabs{display:flex;gap:6px;padding:10px}
-.tabs button{background:#222;margin:0}
-.tabs button.active{background:#fe2c55}
-.small{color:#aaa;font-size:13px}
-.pink{color:#fe2c55;font-weight:bold}
-.badge{background:#fe2c55;color:#fff;padding:2px 8px;border-radius:20px;font-size:12px}
-.blue{color:#1da1f2}
-.hidden{display:none}
-img,video{width:100%;border-radius:12px;margin-top:8px;background:#000}
-.center{text-align:center;padding:20px}
+*{box-sizing:border-box;font-family:system-ui} body{margin:0;background:#000;color:#fff}
+.phone{max-width:430px;margin:auto;min-height:100vh;background:#0a0a0a;border:1px solid #d4af37;position:relative;overflow:hidden}
+.hidden{display:none!important}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#000;border-bottom:1px solid #333}
+.top b{color:#f5c542;font-size:20px} .top button{background:#111;color:#f5c542;border:1px solid #f5c542;padding:6px 10px;border-radius:10px;cursor:pointer}
+.card{background:#111;border:1px solid #333;border-radius:16px;margin:10px;padding:12px}
+input,textarea{width:100%;background:#222;border:1px solid #f5c542;color:#fff;padding:12px;border-radius:12px;margin:6px 0;outline:none}
+.btn{width:100%;background:#f5c542;color:#000;border:0;padding:13px;border-radius:12px;font-weight:bold;cursor:pointer;margin-top:8px}
+.btn2{background:#222;color:#f5c542;border:1px solid #f5c542;padding:8px 12px;border-radius:10px;cursor:pointer}
+.gold{color:#f5c542} .row{display:flex;gap:8px;align-items:center} .avatar{width:48px;height:48px;border-radius:50%;background:#f5c542;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.video{width:100%;height:420px;background:#222;border-radius:14px;overflow:hidden;position:relative}
+.video video{width:100%;height:100%;object-fit:cover}
+.falcon{position:absolute;left:10px;bottom:100px;font-size:38px;cursor:pointer;background:rgba(0,0,0,.5);border:2px solid #f5c542;border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center}
+.dots{cursor:pointer;font-size:22px;color:#f5c542}
+.stories{display:flex;gap:10px;overflow-x:auto;padding:10px}
+.story{text-align:center;min-width:62px} .story .avatar{margin:auto;border:3px solid #f5c542}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px} .grid div{height:110px;background:#222;border-radius:10px;overflow:hidden} .grid img{width:100%;height:100%;object-fit:cover}
+.wallet{background:linear-gradient(90deg,#f5c542,#8a6d00);color:#000;padding:12px;border-radius:14px;font-weight:bold;text-align:center;margin:10px}
+.giftSheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#111;border-top:2px solid #f5c542;padding:16px;border-radius:20px 20px 0 0;z-index:99}
+.gift{display:inline-block;background:#222;border:1px solid #f5c542;border-radius:14px;padding:10px;margin:5px;cursor:pointer;text-align:center;width:30%}
+.fly{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:50px;animation:fly 2.5s forwards;z-index:99;pointer-events:none;text-align:center}
+@keyframes fly{0%{opacity:0;transform:translate(-50%,50%) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-180px) scale(1.4)}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal>div{background:#111;border:1px solid #f5c542;border-radius:16px;padding:18px;width:90%;max-width:380px}
+.comment{display:flex;gap:8px;margin:8px 0}
+.bottomBar{position:sticky;bottom:0;background:#000;padding:10px;display:flex;gap:8px;border-top:1px solid #333}
+.bottomBar input{margin:0}
+.supportBtn{width:68px;background:#2a2000;border:1px solid #f5c542;border-radius:12px;color:#f5c542;cursor:pointer;font-size:12px}
 </style>
 </head>
 <body>
-<header><b>JAWLA <span>جولة</span></b></header>
+<div class="phone" id="app">
 
-<!-- الدخول / انشاء حساب -->
-<div id="auth" class="center">
-  <h2>مرحبا في <span class="pink">جولة</span> 🔥</h2>
-  <div id="loginBox">
-    <input id="loginEmail" placeholder="البريد الإلكتروني">
-    <input id="loginPass" type="password" placeholder="كلمة السر">
-    <button onclick="doLogin()">دخول</button>
-    <p><a href="#" class="pink" onclick="showForgot();return false">هل نسيت كلمة السر؟</a></p>
-    <p class="small">ماعندكش حساب؟ <a href="#" class="pink" onclick="showSignup();return false">إنشاء حساب</a></p>
-  </div>
-  <div id="signupBox" class="hidden">
-    <input id="suName" placeholder="الاسم">
-    <input id="suAge" type="number" placeholder="العمر">
-    <input id="suEmail" placeholder="البريد الإلكتروني">
-    <input id="suPass" type="password" placeholder="كلمة السر - 6 حروف وفوق">
-    <button onclick="doSignup()">إنشاء حساب</button>
-    <p><a href="#" class="pink" onclick="showLogin();return false">عندك حساب؟ دخول</a></p>
-  </div>
-  <div id="forgotBox" class="hidden">
-    <p>اكتب ايميلك، نبعثولك كود</p>
-    <input id="foEmail" placeholder="البريد الإلكتروني">
-    <button onclick="sendCode()">ابعت الكود</button>
-    <input id="foCode" placeholder="الكود - جرب 1234">
-    <input id="foNewPass" type="password" placeholder="كلمة السر الجديدة">
-    <button onclick="resetPass()">تغيير كلمة السر</button>
-    <p><a href="#" class="pink" onclick="showLogin();return false">رجوع للدخول</a></p>
-  </div>
+<!-- 1. AUTH -->
+<div id="authScreen">
+<div class="top"><b>الصقر الذهبي 🦅</b></div>
+<div class="card">
+<h2 id="authTitle">إنشاء حساب جديد</h2>
+<div id="signupFields">
+<input id="regName" placeholder="الاسم الكامل">
+<input id="regUser" placeholder="اسم المستخدم @">
+</div>
+<input id="authEmail" placeholder="البريد الإلكتروني" type="email">
+<input id="authPass" placeholder="إنشاء كلمة المرور" type="password">
+<div id="confirmWrap"><input id="authPass2" placeholder="تأكيد كلمة المرور" type="password"></div>
+<button class="btn" onclick="doAuth()">دخول / إنشاء</button>
+<button class="btn2" style="width:100%;margin-top:8px" onclick="toggleAuth()">عندك حساب؟ سجل دخول</button>
+<button class="btn2" style="width:100%;margin-top:8px" onclick="forgot()">نسيت كلمة السر؟ - Forgot Password</button>
+<p id="authMsg" class="gold"></p>
+<p style="font-size:12px;color:#aaa">التجربة بدون Firebase تخدم محليا. لما تربط Firebase تخدم مع أصحابك حقيقي.</p>
+</div>
 </div>
 
-<!-- التطبيق -->
-<div id="app" class="hidden">
-  <div class="tabs">
-    <button id="tabHome" class="active" onclick="showTab('home')">الرئيسية 🎥</button>
-    <button id="tabTweets" onclick="showTab('tweets')">تغريدات 💬</button>
-    <button id="tabFriends" onclick="showTab('friends')">أصدقاء 👥</button>
-    <button id="tabMe" onclick="showTab('me')">أنا 👤</button>
-  </div>
-
-  <div class="card">
-    <textarea id="postText" placeholder="شن تبي تنزل اليوم؟ فيديو ولا منشور ولا صورة..."></textarea>
-    <input type="file" id="postFile" accept="image/*,video/*">
-    <button onclick="addPost()">+ نشر</button>
-    <p class="small">الدفع والترويج: <b class="pink">TNPYfL44zzrNAwpm6CkbU6yT6bpqsg95r9</b> - USDT TRC20</p>
-  </div>
-
-  <div id="homeTab"><div id="feed"></div></div>
-  <div id="tweetsTab" class="hidden"><div id="tweetsFeed"></div></div>
-  <div id="friendsTab" class="hidden">
-    <div class="card"><b>أصدقاء مقترحين</b><p class="small">أحمد - ليبيا | مريم - طرابلس | علي - مصراتة</p><button onclick="alert('تم ارسال طلب صداقة ✅')">+ إضافة صديق</button><button onclick="alert('تمت دعوتك للايف ✅ اطلع لايف توا')">دعوة للايف 🎙️</button></div>
-  </div>
-  <div id="meTab" class="hidden">
-    <div class="card"><h3 id="myName">أنا</h3><p id="myEmail" class="small"></p><p>توثيق العلامة الزرقاء ✅</p><input type="file" accept="image/*"><button onclick="alert('تم ارسال جوازك للمراجعة، تاخد العلامة الزرقاء بعد التأكيد ✅')">اطلب العلامة الزرقاء ✅</button><button onclick="logout()" style="background:#222">تسجيل خروج</button></div>
-  </div>
+<!-- 2. MAIN -->
+<div id="mainScreen" class="hidden">
+<div class="top"><b>الصقر الذهبي</b><span><button onclick="showScreen('profile')">بروفايلي</button> <button onclick="showScreen('live')">🔴 لايف</button></span></div>
+<div class="row" style="padding:10px"><input id="searchInput" placeholder="🔍 البحث عن أصدقاء وفيديوهات" oninput="doSearch()"><button class="btn2" onclick="doSearch()">بحث</button></div>
+<div class="stories" id="stories"></div>
+<div style="padding:0 10px" class="row"><button class="btn2" onclick="filterFeed('all')">ريلز</button><button class="btn2" onclick="filterFeed('all')">منشورات</button><button class="btn2" onclick="filterFeed('friends')">أصدقاء</button></div>
+<div id="feed"></div>
+<div id="searchResult"></div>
+<div class="bottomBar">
+<input id="globalComment" placeholder="اكتب تعليق...">
+<button class="btn2" onclick="addComment()">إرسال</button>
+<button class="supportBtn" onclick="openGifts()">🦅<br>صندوق الدعم</button>
+</div>
 </div>
 
-<script>
-const WALLET="TNPYfL44zzrNAwpm6CkbU6yT6bpqsg95r9";
-let users=JSON.parse(localStorage.getItem('jawla_users')||'[]');
-let posts=JSON.parse(localStorage.getItem('jawla_posts')||'[]');
-let current=localStorage.getItem('jawla_current')||null;
-if(current){document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');updateMe();renderAll();}
+<!-- 3. PROFILE -->
+<div id="profileScreen" class="hidden">
+<div class="top"><button onclick="showScreen('main')">⬅ رجوع</button><b>البروفايل</b><button onclick="openSettings()">⚙️</button></div>
+<div class="card" style="text-align:center">
+<div class="avatar" style="width:90px;height:90px;margin:auto;font-size:36px" id="profileAvatar">ص</div>
+<h2 id="profileName">صقر</h2><p id="profileUser" class="gold">@user</p>
+<p id="profileBio">أستكشف طرابلس القديمة | ليبيا 🇱🇾</p>
+<p><b id="followersCount">128</b> متابعين | <b id="followingCount">85</b> أتابعهم</p>
+<div class="wallet">💰 محفظة العملات الذهبية الوهمية: <span id="walletBalance">1000</span> عملة</div>
+<button class="btn2" onclick="openSettings()">تعديل البروفايل</button>
+</div>
+<div class="card"><h3>فيديوهاتي</h3><div class="grid" id="myGrid"></div></div>
+</div>
 
-function showLogin(){hideAll();document.getElementById('loginBox').classList.remove('hidden')}
-function showSignup(){hideAll();document.getElementById('signupBox').classList.remove('hidden')}
-function showForgot(){hideAll();document.getElementById('forgotBox').classList.remove('hidden')}
-function hideAll(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('signupBox').classList.add('hidden');document.getElementById('forgotBox').classList.add('hidden')}
+<!-- 4. LIVE -->
+<div id="liveScreen" class="hidden">
+<div class="top"><button onclick="showScreen('main')">⬅ رجوع</button><b>🔴 بث مباشر - LIVE</b><span class="gold">1.2K يشاهد</span></div>
+<div class="video">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800" style="width:100%;height:100%;object-fit:cover">
+<div style="position:absolute;top:10px;right:10px;background:#c00;padding:5px 10px;border-radius:8px">LIVE</div>
+<div class="falcon" onclick="likeFalcon()">🦅</div>
+<div id="flyZone"></div>
+</div>
+<div class="card"><h3>التعليقات</h3><div id="liveComments"></div></div>
+<div class="bottomBar"><input id="liveCommentInput" placeholder="اكتب تعليق في اللايف..."><button class="btn2" onclick="sendLiveComment()">إرسال</button><button class="supportBtn" onclick="openGifts()">🦅 صندوق الدعم</button></div>
+</div>
 
-function doSignup(){
-  let n=document.getElementById('suName').value.trim(),a=document.getElementById('suAge').value,e=document.getElementById('suEmail').value.trim(),p=document.getElementById('suPass').value;
-  if(!n||!e||!p||p.length<6) return alert('عبي البيانات صح، كلمة السر 6 وفوق');
-  if(users.find(u=>u.email===e)) return alert('هذا الايميل موجود، دير دخول');
-  users.push({name:n,age:a,email:e,pass:p});localStorage.setItem('jawla_users',JSON.stringify(users));
-  alert('تم انشاء حسابك ✅ توا خش');showLogin();
+<!-- SETTINGS -->
+<div id="settingsModal" class="modal hidden"><div>
+<h3>⚙️ الإعدادات</h3>
+<input id="editName" placeholder="تغيير الاسم">
+<input id="editBio" placeholder="كتابة الوصف (البايو)">
+<input id="editAvatar" placeholder="رابط صورة جديدة (اختياري)">
+<button class="btn" onclick="saveProfile()">حفظ تعديل الملف الشخصي</button>
+<hr>
+<h4>ترويج الفيديو - 200 عملة</h4>
+<select id="promoteSelect" style="width:100%;padding:10px;background:#222;color:#fff;border-radius:10px"></select>
+<button class="btn" onclick="promoteVideo()">روّج الفيديو الآن</button>
+<hr>
+<button class="btn2" style="width:100%" onclick="logout()">تسجيل الخروج Log Out</button>
+<button class="btn2" style="width:100%;margin-top:8px" onclick="closeSettings()">إغلاق</button>
+</div></div>
+
+<!-- GIFT SHEET -->
+<div id="giftSheet" class="giftSheet hidden">
+<h3>🦅 صندوق الدعم - النسر الذهبي</h3><p>رصيدك: <b id="giftBalance">1000</b> عملة وهمية</p>
+<div class="gift" onclick="sendGift('وردة ذهبية 🌹',10)">🌹<br>وردة ذهبية<br><b>10</b></div>
+<div class="gift" onclick="sendGift('كورات ذهبية ⚽',50)">⚽<br>كورات ذهبية<br><b>50</b></div>
+<div class="gift" onclick="sendGift('صقر ذهبي 🦅',100)">🦅<br>صقر ذهبي<br><b>100</b></div>
+<button class="btn2" style="width:100%;margin-top:10px" onclick="closeGifts()">إغلاق</button>
+</div>
+
+<!-- REPORT / BLOCK -->
+<div id="reportModal" class="modal hidden"><div>
+<h3>خيارات المحتوى</h3>
+<button class="btn" onclick="doReport()">🚨 الإبلاغ عن هذا المحتوى - Report</button>
+<button class="btn" style="background:#c00;color:#fff" onclick="doBlock()">⛔ حظر هذا المستخدم - Block</button>
+<button class="btn2" style="width:100%;margin-top:10px" onclick="closeReport()">إلغاء</button>
+</div></div>
+
+</div>
+
+<script type="module">
+// ====== ضع إعدادات Firebase هنا ======
+const firebaseConfig = {
+  apiKey: "PUT_YOUR_API_KEY",
+  authDomain: "PUT_YOUR_PROJECT.firebaseapp.com",
+  projectId: "PUT_YOUR_PROJECT_ID",
+  storageBucket: "PUT_YOUR_PROJECT.appspot.com",
+  messagingSenderId: "PUT_ID",
+  appId: "PUT_APP_ID"
+};
+// إذا ما حطيتش الإعدادات، التطبيق يخدم محليا للتجربة
+let useFirebase = firebaseConfig.apiKey !== "PUT_YOUR_API_KEY";
+let auth=null, db=null;
+if(useFirebase){
+  const {initializeApp}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+  const {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,signOut}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+  const {getFirestore,doc,setDoc,getDoc,updateDoc,collection,addDoc,getDocs}=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+  const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app);
+  window._fb={createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,doc,setDoc,getDoc,updateDoc,collection,addDoc,getDocs};
 }
-function doLogin(){
-  let e=document.getElementById('loginEmail').value.trim(),p=document.getElementById('loginPass').value;
-  let u=users.find(x=>x.email===e&&x.pass===p);
-  if(!u) return alert('الايميل ولا كلمة السر غلط');
-  current=e;localStorage.setItem('jawla_current',e);
-  document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');updateMe();renderAll();
+
+// ====== STATE ======
+let isSignup=true;
+let currentUser=JSON.parse(localStorage.getItem('falcon_user')||'null')||{name:"صقر",username:"@sagor",email:"demo@test.com",wallet:1000,bio:"أستكشف طرابلس القديمة",followers:128};
+let wallet=currentUser.wallet||1000;
+let blocked=new Set(JSON.parse(localStorage.getItem('falcon_blocked')||'[]'));
+let videos=[
+ {id:1,user:"أحمد",username:"@ahmed",text:"منور طرابلس",likes:120,img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",vid:"https://cdn.coverr.co/videos/coverr-walking-on-the-beach-1584/1080p.mp4"},
+ {id:2,user:"فاطمة",username:"@fatima",text:"لقطة جميلة! موفق",likes:89,img:"https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=800",vid:"https://cdn.coverr.co/videos/coverr-city-at-night-1585/1080p.mp4"},
+ {id:3,user:"محمد",username:"@mohamed",text:"استمر يا بطل 🔥",likes:210,img:"https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",vid:"https://cdn.coverr.co/videos/coverr-surfer-riding-a-wave-1586/1080p.mp4"},
+];
+let comments=[{user:"أحمد",text:"منور طرابلس"},{user:"فاطمة",text:"لقطة جميلة! موفق"},{user:"محمد",text:"استمر يا بطل"}];
+
+window.toggleAuth=()=>{isSignup=!isSignup;document.getElementById('authTitle').innerText=isSignup?"إنشاء حساب جديد":"تسجيل الدخول";document.getElementById('signupFields').classList.toggle('hidden',!isSignup);document.getElementById('confirmWrap').classList.toggle('hidden',!isSignup)}
+window.doAuth=async()=>{
+  const email=document.getElementById('authEmail').value, pass=document.getElementById('authPass').value, pass2=document.getElementById('authPass2').value;
+  const msg=document.getElementById('authMsg');
+  if(!email||!pass){msg.innerText="عبي البريد وكلمة السر";return}
+  if(isSignup && pass!==pass2){msg.innerText="كلمة السر مش متطابقة";return}
+  try{
+    if(useFirebase){
+      if(isSignup){const r=await window._fb.createUserWithEmailAndPassword(auth,email,pass); await window._fb.setDoc(window._fb.doc(db,"users",r.user.uid),{name:document.getElementById('regName').value,username:document.getElementById('regUser').value,email,wallet:1000,created:Date.now()})}
+      else{await window._fb.signInWithEmailAndPassword(auth,email,pass)}
+    }
+    currentUser={name:document.getElementById('regName').value||"صقر",username:document.getElementById('regUser').value||"@sagor",email,wallet:1000,bio:"أستكشف طرابلس القديمة"};
+    localStorage.setItem('falcon_user',JSON.stringify(currentUser)); wallet=1000;
+    enterApp();
+  }catch(e){msg.innerText="خطأ: "+e.message}
 }
-function sendCode(){alert('الكود متاعك هو: 1234 - اكتبه في الخانة اللي تحت');}
-function resetPass(){
-  let e=document.getElementById('foEmail').value.trim(),c=document.getElementById('foCode').value,np=document.getElementById('foNewPass').value;
-  if(c!=='1234') return alert('الكود غلط، جرب 1234');
-  let u=users.find(x=>x.email===e);if(!u) return alert('الايميل مش موجود');
-  u.pass=np;localStorage.setItem('jawla_users',JSON.stringify(users));alert('تم تغيير كلمة السر ✅ توا خش بيها');showLogin();
-}
-function logout(){localStorage.removeItem('jawla_current');location.reload();}
-function updateMe(){let u=users.find(x=>x.email===current);if(u){document.getElementById('myName').innerText=u.name+' ✅';document.getElementById('myEmail').innerText=u.email;}}
-function showTab(t){
-  ['home','tweets','friends','me'].forEach(x=>document.getElementById(x+'Tab').classList.add('hidden'));
-  document.getElementById(t+'Tab').classList.remove('hidden');
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
-}
-function addPost(){
-  let txt=document.getElementById('postText').value.trim();if(!txt&&!document.getElementById('postFile').files[0]) return alert('اكتب شي ولا اختار صورة / فيديو');
-  let u=users.find(x=>x.email===current);let name=u?u.name:'ضيف';
-  let file=document.getElementById('postFile').files[0];
-  let url='';let type='text';
-  if(file){url=URL.createObjectURL(file);type=file.type.includes('video')?'video':'image';}
-  posts.unshift({id:Date.now(),name:name,text:txt,url:url,type:type,promoted:false,likes:0});
-  localStorage.setItem('jawla_posts',JSON.stringify(posts));document.getElementById('postText').value='';renderAll();alert('تم النشر ✅');
-}
-function promotePost(id){
-  let ok=confirm('ترويج أوتوماتيك 🔥\n\n5$ = 10 أيام\nالوصول المتوقع: 3500+ يوميا\n\nابعت 5$ USDT - TRC20 لهذا العنوان:\n'+WALLET+'\n\nاضغط موافق بعد ما تحول');
-  if(!ok) return;
-  let paid=confirm('هل حولت 5$ توا؟ اضغط موافق باش نروجلك طول 10 أيام');
-  if(!paid) return;
-  let p=posts.find(x=>x.id===id);p.promoted=true;p.days=10;localStorage.setItem('jawla_posts',JSON.stringify(posts));renderAll();alert('تم ✅ تم ترويج منشورك طول 10 أيام - الوصول 3500+ يوميا');
-}
-function renderAll(){
-  let html='';
-  if(posts.length===0) html='<div class="card center">مافيش منشورات توا، انشر اول واحد 🔥</div>';
-  posts.forEach(p=>{
-    let promo=p.promoted?'<div><span class="badge">🔥 مروّج - 10 أيام | 👀 3500+ يوميا</span></div>':'';
-    let media=p.type==='video'?'<video controls src="'+p.url+'"></video>':p.type==='image'?'<img src="'+p.url+'">':'';
-    html+='<div class="card">'+promo+'<b>'+p.name+' <span class="blue">✅</span></b><p>'+p.text+'</p>'+media+'<br><button style="background:#222" onclick="alert(\'تم الاعجاب ❤️\')">❤️ اعجاب</button> <button onclick="promotePost('+p.id+')">🚀 روّج - 5$ / 10 أيام</button></div>';
-  });
-  document.getElementById('feed').innerHTML=html;
-  document.getElementById('tweetsFeed').innerHTML=html;
-}
-renderAll();
-</script>
-</body>
-</html>
+window.forgot=async()=>{const email=document.getElementById('authEmail').value; if(!email){alert("اكتب بريدك أولا");return} if(useFirebase){await window._fb.sendPasswordResetEmail(auth,email)} alert("تم إرسال رابط استعادة الحساب لبريدك")}
+function enterApp(){document.getElementById('authScreen').classList.add('hidden');document.getElementById('mainScreen').classList.remove('hidden');renderAll()}
+window.showScreen=(s)=>{['mainScreen','profileScreen','liveScreen'].forEach(id=>document.getElementById(id).classList.add('hidden')); if(s==='main')document.getElementById('mainScreen').classList.remove('hidden'); if(s==='profile'){document.getElementById('profileScreen').classList.remove('hidden');renderProfile()} if(s==='live'){document.getElementById('liveScreen').classList.remove('hidden');renderLive()}}
+window.likeFalcon=()=>{const el=document.getElementById('flyZone'); el.innerHTML='<div class="fly">🦅<br><small>صقر ذهبي!</small></div>'; setTimeout(()=>el.innerHTML='',2500)}
+function renderAll(){renderStories();renderFeed();renderProfile();renderLive()}
+function renderStories(){document.getElementById('stories').innerHTML=videos.map(v=>`<div class="story"><div class="avatar">${v.user[0]}</div><small>${v.user}</small><br><small class="gold">✓ متابعه</small></div>`).join('')+`<div class="story"><div class="avatar">خ</div><small>خالد</small><br><small style="color:#888">✓ مش متابعه</small></div><div class="story"><div class="avatar">م</div><small>مباشر</small><br><small style="color:#888">✓ مش متابعه</small></div>`}
+function renderFeed(){document.getElementById('feed').innerHTML=videos.filter(v=>!blocked.has(v.username)).map(v=>`
+<div class="card"><div class="row"><div class="avatar" onclick="visitProfile('${v.user}')">${v.user[0]}</div><div style="flex:1"><b>${v.user}</b><br><small class="gold">${v.username}</small></div><button class="btn2" onclick="follow(this)">متابعة - Follow</button><span class="dots" onclick="openReport('${v.username
