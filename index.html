@@ -36,6 +36,28 @@ body{font-family:system-ui,Arial;color:#fff}
 .bi.prof-b{color:#fff}
 .bi.prof-b::after{content:"";position:absolute;left:26%;right:26%;bottom:-2px;height:1.5px;background:#E6C87A}
 .center{width:40px;height:40px;background:#F5D76E;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin:0 4px}
+  /* اضافة الرسائل فقط */
+.msg-page{display:none;flex:1;flex-direction:column;overflow:hidden;background:#000}
+.msg-page.show{display:flex}
+.msg-head{padding:6px 14px 10px;display:flex;justify-content:space-between;align-items:center}
+.msg-head h2{font-size:32px;font-weight:800}
+.badge-top{background:#E6C87A;color:#000;font-size:15px;font-weight:700;padding:6px 14px;border-radius:999px}
+.search{margin:0 14px 12px;border:1px solid #E6C87A;border-radius:999px;padding:11px 12px;display:flex;align-items:center;justify-content:flex-end;gap:8px;color:#C9A86A;font-size:14px}
+.company{margin:0 14px 12px;border:1.5px solid #E6C87A;border-radius:12px;padding:14px 12px;background:#0a0a0a;box-shadow:0 0 20px rgba(230,200,122,.5)}
+.company b{color:#E6C87A;font-size:18px}
+.company .ico{width:32px;height:32px;border:1.5px solid #E6C87A;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#E6C87A;font-weight:700}
+.company p{font-size:15px;margin-top:6px;line-height:1.5}
+.msg-list{flex:1;overflow-y:auto;padding:0 12px 10px}
+.msg-item{display:flex;align-items:center;gap:10px;background:#141414;border-radius:14px;padding:12px 10px;margin-bottom:10px}
+.dot{width:8px;height:8px;background:#E6C87A;border-radius:50%;flex-shrink:0}
+.avatar{width:58px;height:58px;border-radius:50%;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;background:#1a1a1a;border:1.5px solid #E6C87A;color:#E6C87A}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar.support{background:#E6C87A;color:#000;font-size:26px;border:none}
+.count{position:absolute;bottom:0;left:0;background:#E6C87A;color:#000;font-size:11px;font-weight:800;padding:2px 6px;border-radius:999px;min-width:22px;text-align:center}
+.msg-text{flex:1;min-width:0}
+.msg-text b{font-size:16px}
+.msg-text p{font-size:13.5px;color:#ddd;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{font-size:12px;color:#E6C87A;white-space:nowrap;text-align:left;line-height:1.7}
 </style>
 </head>
 <body>
@@ -62,6 +84,19 @@ body{font-family:system-ui,Arial;color:#fff}
 <div class="cap"><div class="u"><b>SQOLD</b><span class="plus">+</span></div><p>نوثق رحلات الصقارة والبرية بأصالة واحتراف. لقطات من الصيد بالصقر في الطبيعة، تدريب وتقنيات تقليدية تحافظ على التراث. #الصقر_الذهبي #التراث #الصقارة #الطبيعة #الإمارات<br><i>#الصقار #الصقارة</i></p></div>
 <div class="next">^ اسحب للأعلى • الفيديو التالي</div>
 </div>
+  <!-- اضافة صفحة الرسائل فقط -->
+<div id="msgPage" class="msg-page">
+<div class="msg-head"><h2>الرسائل</h2><span class="badge-top">19 جديد</span></div>
+<div class="search">ابحث عن محادثة... <span>🔍</span></div>
+<div class="company"><div style="display:flex;justify-content:space-between"><b>تنبيه من شركة SQOLD</b><span class="ico">i</span></div><p>أهلاً بيك في SQOLD • تم تفعيل حسابك بنجاح</p></div>
+<div class="msg-list">
+<div class="msg-item"><span class="dot"></span><div class="avatar">SQ<span class="count">39</span></div><div class="msg-text"><b>SQOLD الرسمية ✅</b><p>✨ تم تفعيل حسابك — ابدأ الآن باستكشاف العروض</p></div><div class="time">الآن</div></div>
+<div class="msg-item"><span class="dot"></span><div class="avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face"><span class="count">2</span></div><div class="msg-text"><b>عبدالله الصقار</b><p>جاهزين للطلب؟ أرسلت لك التفاصيل</p></div><div class="time">الآن<br>١٠ د</div></div>
+<div class="msg-item"><span class="dot"></span><div class="avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face"><span class="count">5</span></div><div class="msg-text"><b>محمد</b><p>تمام، بنشوفك بكرة</p></div><div class="time">٣٢ د</div></div>
+<div class="msg-item"><span class="dot"></span><div class="avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face"><span class="count">5</span></div><div class="msg-text"><b>سارة</b><p>تم إرسال الفاتورة، تحققي منها</p></div><div class="time">ساعة</div></div>
+<div class="msg-item"><span class="dot"></span><div class="avatar support">🎧<span class="count">9</span></div><div class="msg-text"><b>SQOLD دعم</b><p>نحن هنا للمساعدة، كيف نقدر نساعدك؟</p></div><div class="time">أمس</div></div>
+</div>
+</div>
 <div class="bottom">
 <div class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="#E6C87A" style="margin:auto"><path d="M12 2l10 9v11h-7v-7h-6v7H2V11z"/></svg><br>الصفحة الرئيسية</div>
 <div class="bi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E6C87A" stroke-width="1.4" style="margin:auto"><path d="M4 4h16v11H9l-5 4z"/></svg><span class="badge">19</span><br>الأصدقاء</div>
@@ -70,5 +105,9 @@ body{font-family:system-ui,Arial;color:#fff}
 <div class="bi prof-b"><svg width="18" height="18" viewBox="0 0 24 24" fill="#C9C9C9" style="margin:auto"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6z"/></svg><br>بروفيل</div>
 </div>
 </div>
+  <script>
+function showMsg(){document.getElementById('homePage').style.display='none';document.getElementById('msgPage').classList.add('show')}
+function showHome(){document.getElementById('homePage').style.display='flex';document.getElementById('msgPage').classList.remove('show')}
+</script>
 </body>
 </html>
